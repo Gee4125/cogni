@@ -18,7 +18,8 @@ def generate_secret_key():
 app = Flask(__name__, static_folder='static')
 app.config['SECRET_KEY'] = generate_secret_key()
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin123@localhost/cognitixdb'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin123@localhost/postgres'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin123@localhost/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] ='postgresql://cognitixtest_user:oShwNT07lC62Gu7qXYkBtpDhqMCYU2Q9@dpg-cr9j9obv2p9s73b95pf0-a.oregon-postgres.render.com/cognitixtest'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
