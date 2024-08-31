@@ -17,8 +17,6 @@ def generate_secret_key():
 
 app = Flask(__name__, static_folder='static')
 app.config['SECRET_KEY'] = generate_secret_key()
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin123@localhost/cognitixdb'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin123@localhost/postgres'
 app.config['SQLALCHEMY_DATABASE_URI'] ='postgresql://cognitixtest_user:oShwNT07lC62Gu7qXYkBtpDhqMCYU2Q9@dpg-cr9j9obv2p9s73b95pf0-a.oregon-postgres.render.com/cognitixtest'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -169,19 +167,6 @@ def main_page():
 def login_page():
     return render_template('LOGIN_SIGNUP_HTML.html')
 
-# @app.route('/login', methods=['POST'])
-# def login():
-#     gmail_id = request.form['gmail-id']
-#     password = request.form['password']
-
-#     user = User.query.filter_by(gmail_id=gmail_id).first()
-    
-#     if user and check_password_hash(user.password, password):
-#         return "Login successful"
-#     else:
-#         return "Invalid credentials"
-#     # Add your login logic here
-#     return redirect(url_for('topics_page'))
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -200,25 +185,6 @@ def login():
         return f"An error occurred: {str(e)}", 500
 
     
-
-# @app.route('/signup', methods=['POST'])
-# def signup():
-#     first_name = request.form['first-name']
-#     last_name = request.form['last-name']
-#     gmail_id = request.form['gmail-id']
-#     phone = request.form['phone']
-#     dob = request.form['dob']
-#     gender = request.form['gender']
-#     address = request.form['address']
-#     password = request.form['password']
-
-
-#     new_user = User(first_name, last_name, gmail_id, phone, dob, gender, address, password)
-#     db.session.add(new_user)
-#     db.session.commit()
-
-#     # Add your signup logic here
-#     return redirect(url_for('topics'))
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -307,31 +273,6 @@ def form_page_4():
 def fifth_page():
     return render_template('five_html.html')
 
-# @app.route('/form_page_5', methods=['GET', 'POST'])
-# def form_page_5():
-#     if request.method == 'POST':
-#         selected_option = request.form.get('response')
-#         score = empathy_scores['form_page_5'].get(selected_option, 0)
-#         session['total_score'] += score
-#         return redirect(url_for('result_page'))
-#     return render_template('form_html5.html')
-
-# @app.route('/form_page_5', methods=['GET', 'POST'])
-# def form_page_5():
-#     if request.method == 'POST':
-#         selected_option = request.form.get('response')
-#         score = empathy_scores['form_page_5'].get(selected_option, 0)
-#         session['total_score'] += score
-
-#         # Save the score to the database
-#         user_id = session.get('user_id')
-#         if user_id:
-#             empathy_score = EmpathyScore(user_id=user_id, score=session['total_score'])
-#             db.session.add(empathy_score)
-#             db.session.commit()
-
-#         return redirect(url_for('result_page'))
-#     return render_template('form_html5.html')
 
 @app.route('/form_page_5', methods=['GET', 'POST'])
 def form_page_5():
@@ -404,40 +345,6 @@ def form_page_4_a():
 def fifth_page_a():
     return render_template('fifth_html_a.html')
 
-# @app.route('/form_page_5_a', methods=['GET', 'POST'])
-# def form_page_5_a():
-#     if request.method == 'POST':
-#         session['response_5'] = request.form['response']
-#         return redirect(url_for('results_a'))
-#     return render_template('form_html5_a.html')
-
-# @app.route('/form_page_5_a', methods=['GET', 'POST'])
-# def form_page_5_a():
-#     if request.method == 'POST':
-#         session['response_5'] = request.form['response']
-
-#         responses = [
-#             session.get('response_1'),
-#             session.get('response_2'),
-#             session.get('response_3'),
-#             session.get('response_4'),
-#             session.get('response_5')
-#         ]
-
-#         total_score = sum(
-#             adaptability_scores[f'scenario_{i+1}'].get(response, 0)
-#             for i, response in enumerate(responses)
-#         )
-
-#         # Save the score to the database
-#         user_id = session.get('user_id')
-#         if user_id:
-#             adaptability_score = AdaptabilityScore(user_id=user_id, score=total_score)
-#             db.session.add(adaptability_score)
-#             db.session.commit()
-
-#         return redirect(url_for('results_a'))
-#     return render_template('form_html5_a.html')
 
 @app.route('/form_page_5_a', methods=['GET', 'POST'])
 def form_page_5_a():
@@ -494,21 +401,6 @@ def Logic_first():
 def memory_game():
     return render_template('memory_html.html')
 
-# @app.route('/static/style.css')
-# def serve_css():
-#     return sudoku_css, 200, {'Content-Type': 'text/css'}
-
-# @app.route('/static/script.js')
-# def serve_js():
-#     return sudoku_js, 200, {'Content-Type': 'application/javascript'}
-
-# @app.route('/static/memory_style.css')
-# def serve_memory_css():
-#     return memory_css, 200, {'Content-Type': 'text/css'}
-
-# @app.route('/static/memory_script.js')
-# def serve_memory_js():
-#     return memory_js, 200, {'Content-Type': 'application/javascript'}
 @app.route('/sudoku_css')
 def serve_css():
     return render_template('sudoku_css.css')
@@ -570,243 +462,6 @@ def page1():
 @app.route('/speech-recognition')
 def index():
     return render_template('index_html_s.html', expected_text1=expected_text1, expected_text2=expected_text2)
-
-# @app.route('/record', methods=['POST'])
-# def record():
-#     audio_file = request.files['audio']
-
-#     # Convert the audio file to WAV format
-#     audio = AudioSegment.from_file(audio_file)
-#     audio_wav = io.BytesIO()
-#     audio.export(audio_wav, format="wav")
-#     audio_wav.seek(0)
-
-#     # Save the WAV file temporarily to check it
-#     with open("/tmp/test.wav", "wb") as f:
-#         f.write(audio_wav.getvalue())
-
-#     # Recognize speech using speech_recognition
-#     try:
-#         with sr.AudioFile(audio_wav) as source:
-#             audio_data = recognizer.record(source)
-#             recognized_text = recognizer.recognize_google(audio_data)
-#             print(f"You said: {recognized_text}")
-
-#             # Compare the recognized speech with the expected text
-#             accuracy1 = calculate_accuracy(recognized_text, expected_text1)
-#             accuracy2 = calculate_accuracy(recognized_text, expected_text2)
-
-#             return render_template('result_html.html', recognized_text=recognized_text, accuracy1=accuracy1, accuracy2=accuracy2)
-#     except sr.UnknownValueError:
-#         return "Google Speech Recognition could not understand audio"
-#     except sr.RequestError as e:
-#         return f"Could not request results from Google Speech Recognition service; {e}"
-
-# @app.route('/record', methods=['POST'])
-# def record():
-#     audio_file = request.files['audio']
-
-#     # Convert the audio file to WAV format
-#     audio = AudioSegment.from_file(audio_file, format="webm")
-#     audio_wav = io.BytesIO()
-#     audio.export(audio_wav, format="wav")
-#     audio_wav.seek(0)
-
-#     # Save the WAV file temporarily to check it
-#     with open("/tmp/test.wav", "wb") as f:
-#         f.write(audio_wav.getvalue())
-
-#     # Recognize speech using speech_recognition
-#     try:
-#         with sr.AudioFile(audio_wav) as source:
-#             audio_data = recognizer.record(source)
-#             recognized_text = recognizer.recognize_google(audio_data, language="en-US")
-#             print(f"You said: {recognized_text}")
-
-#             # Compare the recognized speech with the expected text
-#             accuracy1 = calculate_accuracy(recognized_text, expected_text1)
-#             accuracy2 = calculate_accuracy(recognized_text, expected_text2)
-
-#             return render_template('result_html.html', recognized_text=recognized_text, accuracy1=accuracy1, accuracy2=accuracy2)
-#     except sr.UnknownValueError:
-#         return "Google Speech Recognition could not understand audio"
-#     except sr.RequestError as e:
-#         return f"Could not request results from Google Speech Recognition service; {e}"
-
-# @app.route('/record', methods=['POST'])
-# def record():
-#     if 'audio' not in request.files:
-#         return "No audio file part", 400
-
-#     audio_file = request.files['audio']
-    
-#     # Save the uploaded file to a temporary location
-#     temp_audio_path = tempfile.mktemp(suffix=".mp3")
-#     audio_file.save(temp_audio_path)
-    
-#     # Convert the audio to WAV format using pydub
-#     try:
-#         audio = AudioSegment.from_file(temp_audio_path)
-#         wav_audio_path = temp_audio_path.replace(".mp3", ".wav")
-#         audio.export(wav_audio_path, format="wav")
-        
-#         # Now process the WAV audio with speech_recognition
-#         recognizer = sr.Recognizer()
-#         with sr.AudioFile(wav_audio_path) as source:
-#             audio_data = recognizer.record(source)
-#             try:
-#                 text = recognizer.recognize_google(audio_data)
-#                 return f"Recognized Text: {text}"
-#             except sr.UnknownValueError:
-#                 return "Google Speech Recognition could not understand audio"
-#             except sr.RequestError:
-#                 return "Could not request results from Google Speech Recognition service"
-#     except Exception as e:
-#         return f"Error: {str(e)}"
-#     finally:
-#         os.remove(temp_audio_path)
-#         if os.path.exists(wav_audio_path):
-#             os.remove(wav_audio_path)
-
-# @app.route('/record', methods=['POST'])
-# def record():
-#     if 'audio' not in request.files:
-#         return "No audio file part", 400
-
-#     audio_file = request.files['audio']
-    
-#     # Save the uploaded file to a temporary location
-#     temp_audio_path = tempfile.mktemp(suffix=".mp3")
-#     audio_file.save(temp_audio_path)
-    
-#     try:
-#         # Convert the audio to WAV format using pydub
-#         audio = AudioSegment.from_file(temp_audio_path)
-#         wav_audio_path = temp_audio_path.replace(".mp3", ".wav")
-#         audio.export(wav_audio_path, format="wav")
-        
-#         # Process the WAV audio with speech_recognition
-#         recognizer = sr.Recognizer()
-#         with sr.AudioFile(wav_audio_path) as source:
-#             audio_data = recognizer.record(source)
-#             try:
-#                 recognized_text = recognizer.recognize_google(audio_data)
-#                 print(f"Recognized Text: {recognized_text}")
-
-#                 # Expected texts for comparison
-#                 expected_text1 = "Expected sentence one"
-#                 expected_text2 = "Expected sentence two"
-
-#                 # Calculate accuracy for each expected text
-#                 accuracy1 = calculate_accuracy(recognized_text, expected_text1)
-#                 accuracy2 = calculate_accuracy(recognized_text, expected_text2)
-#                 print(f"Accuracy1: {accuracy1:.2f}%")
-#                 print(f"Accuracy2: {accuracy2:.2f}%")
-
-#                 # Render the result to the template
-#                 return render_template('result_html.html', recognized_text=recognized_text, accuracy1=accuracy1, accuracy2=accuracy2)
-#             except sr.UnknownValueError:
-#                 return "Google Speech Recognition could not understand audio"
-#             except sr.RequestError:
-#                 return "Could not request results from Google Speech Recognition service"
-#     except Exception as e:
-#         return f"Error: {str(e)}"
-#     finally:
-#         os.remove(temp_audio_path)
-#         if os.path.exists(wav_audio_path):
-#             os.remove(wav_audio_path)
-
-
-# def calculate_accuracy(recognized_text, expected_text):
-#     recognized_words = recognized_text.lower().split()
-#     expected_words = expected_text.lower().split()
-#     matching_words = sum(1 for i, word in enumerate(recognized_words) if i < len(expected_words) and word == expected_words[i])
-#     accuracy = matching_words / len(expected_words) * 100
-#     return accuracy
-
-
-
-# @app.route('/record', methods=['POST'])
-# def record():
-#     if 'audio' not in request.files:
-#         return "No audio file part", 400
-
-#     audio_file = request.files['audio']
-    
-#     # Save the uploaded file to a temporary location
-#     temp_audio_path = tempfile.mktemp(suffix=".mp3")
-#     audio_file.save(temp_audio_path)
-    
-#     # Convert the audio to WAV format using pydub
-#     try:
-#         audio = AudioSegment.from_file(temp_audio_path)
-#         wav_audio_path = temp_audio_path.replace(".mp3", ".wav")
-#         audio.export(wav_audio_path, format="wav")
-        
-#         # Now process the WAV audio with speech_recognition
-#         recognizer = sr.Recognizer()
-#         with sr.AudioFile(wav_audio_path) as source:
-#             audio_data = recognizer.record(source)
-#             try:
-#                 recognized_text = recognizer.recognize_google(audio_data)
-#                 expected_text1 = "The quick brown fox jumps over the lazy dog"
-#                 expected_text2 = "Pack my box with five dozen liquor jugs"
-
-#                 accuracy1 = calculate_accuracy(recognized_text, expected_text1)
-#                 accuracy2 = calculate_accuracy(recognized_text, expected_text2)
-
-#                 return render_template('result_html.html', recognized_text=recognized_text, accuracy1=accuracy1, accuracy2=accuracy2)
-#             except sr.UnknownValueError:
-#                 return "Google Speech Recognition could not understand audio"
-#             except sr.RequestError as e:
-#                 return f"Could not request results from Google Speech Recognition service; {e}"
-#     except Exception as e:
-#         return f"Error: {str(e)}"
-#     finally:
-#         os.remove(temp_audio_path)
-#         if os.path.exists(wav_audio_path):
-#             os.remove(wav_audio_path)
-
-# @app.route('/record', methods=['POST'])
-# def record():
-#     if 'audio' not in request.files:
-#         return "No audio file part", 400
-
-#     audio_file = request.files['audio']
-    
-#     # Save the uploaded file to a temporary location
-#     temp_audio_path = tempfile.mktemp(suffix=".mp3")
-#     audio_file.save(temp_audio_path)
-    
-#     # Convert the audio to WAV format using pydub
-#     try:
-#         audio = AudioSegment.from_file(temp_audio_path)
-#         wav_audio_path = temp_audio_path.replace(".mp3", ".wav")
-#         audio.export(wav_audio_path, format="wav")
-        
-#         # Now process the WAV audio with speech_recognition
-#         recognizer = sr.Recognizer()
-#         with sr.AudioFile(wav_audio_path) as source:
-#             audio_data = recognizer.record(source)
-#             try:
-#                 recognized_text = recognizer.recognize_google(audio_data)
-#                 expected_text1 = "The quick brown fox jumps over the lazy dog"
-#                 expected_text2 = "Pack my box with five dozen liquor jugs"
-
-#                 accuracy1 = calculate_accuracy(recognized_text, expected_text1)
-#                 accuracy2 = calculate_accuracy(recognized_text, expected_text2)
-
-#                 return render_template('result_html.html', recognized_text=recognized_text, accuracy1=accuracy1, accuracy2=accuracy2)
-#             except sr.UnknownValueError:
-#                 return "Google Speech Recognition could not understand audio"
-#             except sr.RequestError as e:
-#                 return f"Could not request results from Google Speech Recognition service; {e}"
-#     except Exception as e:
-#         return f"Error: {str(e)}"
-#     finally:
-#         os.remove(temp_audio_path)
-#         if os.path.exists(wav_audio_path):
-#             os.remove(wav_audio_path)
 
 
 @app.route('/record', methods=['POST'])
@@ -881,42 +536,6 @@ def next_page():
 def page2():
     return render_template('page2_html.html')
 
-# @app.route('/submit_answers', methods=['POST'])
-# def submit_answers():
-#     user_answers = request.json['answers']
-#     correct_answers = [
-#         "c",  # the string
-#         "d",  # soar high
-#         "b",  # follow a set of rules
-#         "a",  # track
-#         "b",  # chaos
-#         "c"   # the importance of discipline
-#     ]
-#     score = sum(1 for user, correct in zip(user_answers, correct_answers) if user.lower() == correct)
-#     return jsonify({'score': score, 'total': len(correct_answers)})
-
-# @app.route('/submit_answers', methods=['POST'])
-# def submit_answers():
-#     user_answers = request.json['answers']
-#     correct_answers = [
-#         "c",  # the string
-#         "d",  # soar high
-#         "b",  # follow a set of rules
-#         "a",  # track
-#         "b",  # chaos
-#         "c"   # the importance of discipline
-#     ]
-#     score = sum(1 for user, correct in zip(user_answers, correct_answers) if user.lower() == correct)
-
-#     # Save the score to the database
-#     user_id = session.get('user_id')
-#     if user_id:
-#         logical_score = LogicalScore(user_id=user_id, score=score)
-#         db.session.add(logical_score)
-#         db.session.commit()
-
-#     return jsonify({'score': score, 'total': len(correct_answers)})
-
 @app.route('/submit_answers', methods=['POST'])
 def submit_answers():
     user_answers = request.json['answers']
@@ -935,42 +554,6 @@ def submit_answers():
 def final_page():
     return render_template('FINAL_PAGE_HTML.html')
 
-# @app.route('/final')
-# def final():
-#     user_id = session.get('user_id')
-#     if not user_id:
-#         return redirect(url_for('login_page'))
-
-#     user = User.query.get(user_id)
-#     if not user:
-#         return "User not found", 404
-
-#     empathy_scores = EmpathyScore.query.filter_by(user_id=user_id).all()
-#     adaptability_scores = AdaptabilityScore.query.filter_by(user_id=user_id).all()
-#     sudoku_scores = SudokuScore.query.filter_by(user_id=user_id).all()
-#     memory_scores = MemoryScore.query.filter_by(user_id=user_id).all()
-#     communication_scores = CommunicationScore.query.filter_by(user_id=user_id).all()
-
-#     return render_template('final.html', user=user, empathy_scores=empathy_scores, adaptability_scores=adaptability_scores, sudoku_scores=sudoku_scores, memory_scores=memory_scores, communication_scores=communication_scores)
-
-
-# @app.route('/about_you')
-# def about_you():
-#     user_id = session.get('user_id')
-#     if not user_id:
-#         return redirect(url_for('login_page'))
-
-#     user = User.query.get(user_id)
-#     if not user:
-#         return "User not found", 404
-
-#     empathy_scores = EmpathyScore.query.filter_by(user_id=user_id).all()
-#     adaptability_scores = AdaptabilityScore.query.filter_by(user_id=user_id).all()
-#     sudoku_scores = SudokuScore.query.filter_by(user_id=user_id).all()
-#     memory_scores = MemoryScore.query.filter_by(user_id=user_id).all()
-#     communication_scores = CommunicationScore.query.filter_by(user_id=user_id).all()
-
-#     return render_template('aboutyou.html', user=user, empathy_scores=empathy_scores, adaptability_scores=adaptability_scores, sudoku_scores=sudoku_scores, memory_scores=memory_scores, communication_scores=communication_scores)
 
 @app.route('/final')
 def final():
@@ -990,23 +573,6 @@ def final():
 
     return render_template('final.html', user=user, empathy_scores=empathy_scores, adaptability_scores=adaptability_scores, sudoku_scores=sudoku_scores, memory_scores=memory_scores, communication_scores=communication_scores)
 
-# @app.route('/about_you')
-# def about_you():
-#     user_id = session.get('user_id')
-#     if not user_id:
-#         return redirect(url_for('login_page'))
-
-#     user = User.query.get(user_id)
-#     if not user:
-#         return "User not found", 404
-
-#     empathy_scores = EmpathyScore.query.filter_by(user_id=user_id).all()
-#     adaptability_scores = AdaptabilityScore.query.filter_by(user_id=user_id).all()
-#     sudoku_scores = SudokuScore.query.filter_by(user_id=user_id).all()
-#     memory_scores = MemoryScore.query.filter_by(user_id=user_id).all()
-#     communication_scores = CommunicationScore.query.filter_by(user_id=user_id).all()
-
-#     return render_template('aboutyou.html', user=user, empathy_scores=empathy_scores, adaptability_scores=adaptability_scores, sudoku_scores=sudoku_scores, memory_scores=memory_scores, communication_scores=communication_scores)
 
 @app.route('/about_you')
 def about_you():
